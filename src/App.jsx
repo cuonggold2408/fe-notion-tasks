@@ -2,16 +2,21 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Home from "./pages/Home";
-import AuthMiddleware from "./middlewares/AuthMiddleware";
+import ProtectedRoutes from "./middlewares/ProtectedRoutes";
+import UnauthorizedRoutes from "./middlewares/UnauthorizedRoutes";
+import NotFound from "./NotFound/NotFound";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<AuthMiddleware />}>
-        <Route index element={<Home />} />
+      <Route element={<ProtectedRoutes />}>
+        <Route path="/" element={<Home />} />
       </Route>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route element={<UnauthorizedRoutes />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

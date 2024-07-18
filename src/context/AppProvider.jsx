@@ -34,6 +34,7 @@ export default function AppProvider({ children }) {
   const [selectedItemId, setSelectedItemId] = useState("all");
 
   const [searchText, setSearchText] = useState("");
+  const [user, setUser] = useState(null);
 
   return (
     <AppContext.Provider
@@ -46,6 +47,8 @@ export default function AppProvider({ children }) {
         setSelectedItemId,
         searchText,
         setSearchText,
+        user,
+        setUser,
       }}
     >
       {children}
