@@ -93,8 +93,6 @@ export default function Sidebar({
     AOS.refresh();
   }, []);
 
-  console.log("name: ", name);
-
   return (
     <>
       {isLoading && <Loading />}

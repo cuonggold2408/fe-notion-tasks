@@ -71,7 +71,6 @@ export default function Main() {
       const response = await authorizedAxiosInstance.get(
         `${API_ROOT}/task/get-task`
       );
-      console.log("response", response.data);
       setTodoList(response.data.data);
       showToast("success", "Thêm task thành công");
     }
@@ -142,7 +141,6 @@ export default function Main() {
   const activeTodoItem = todoList.find(
     (todo) => todo.id === activeTodoItemId && todo.deletedAt === null
   );
-  // console.log("🚀 ~ activeTodoItem:", activeTodoItem);
 
   const handleTodoItemChange = (newTodo) => {
     const newTodoList = todoList.map((todo) => {
@@ -151,7 +149,6 @@ export default function Main() {
       }
       return todo;
     });
-    console.log("🚀 ~ newTodoList:", newTodoList);
     setTodoList(newTodoList);
   };
 
@@ -191,10 +188,6 @@ export default function Main() {
     };
     fetchData();
   }, [setTodoList]);
-
-  // console.log("todoList", todoList);
-  console.log("selectedItemId: ", selectedItemId);
-  console.log("showSidebar: ", showSidebar);
 
   return (
     <>

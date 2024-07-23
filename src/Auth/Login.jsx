@@ -30,22 +30,11 @@ export default function Login() {
       }
     );
 
-    // const userInfo = {
-    //   name: response?.data?.data?.user?.name,
-    //   email: response?.data?.data?.user?.email,
-    // };
-
-    // localStorage.setItem("userInfo", JSON.stringify(userInfo));
-
     localStorage.setItem("isLogin", true);
 
     showToast("success", "Đăng nhập thành công", async () => {
       try {
         setIsLoading(true);
-        // const response = await authorizedAxiosInstance.get(
-        //   `${API_ROOT}/user/profile`
-        // );
-        // console.log("🚀 ~ showToast ~ response:", response);
 
         setUser(response?.data?.data?.user);
         navigate("/");
