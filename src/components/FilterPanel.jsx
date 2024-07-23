@@ -74,21 +74,27 @@ export default function FilterPanel() {
   } = useContext(AppContext);
 
   const countByFilterType = useMemo(() => {
+    const deleteList = todoList.filter((item) => item.deletedAt);
     return todoList.reduce(
       (acc, cur) => {
         let newAcc = { ...acc };
-        if (cur.isCompleted) {
+        if (cur.is_completed && !cur.deletedAt) {
           newAcc = { ...newAcc, completed: newAcc.completed + 1 };
         }
-        if (cur.isImportant) {
+        if (cur.is_important && !cur.deletedAt) {
           newAcc = { ...newAcc, important: newAcc.important + 1 };
         }
-        if (cur.isDeleted) {
+        if (cur.deletedAt) {
           newAcc = { ...newAcc, deleted: newAcc.deleted + 1 };
         }
         return newAcc;
       },
-      { all: todoList.length, important: 0, completed: 0, deleted: 0 }
+      {
+        all: todoList.length - deleteList.length,
+        important: 0,
+        completed: 0,
+        deleted: 0,
+      }
     );
   }, [todoList]);
 

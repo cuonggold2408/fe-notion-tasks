@@ -8,9 +8,10 @@ export default function CategoryList() {
     useContext(AppContext);
 
   const countByCategory = useMemo(() => {
-    return todoList.reduce(
+    const lists = todoList.filter((item) => !item.is_deleted);
+    return lists.reduce(
       (acc, cur) => {
-        switch (cur.category) {
+        switch (cur?.category?.category_name || cur?.category) {
           case "personal":
             return { ...acc, personal: acc.personal + 1 };
           case "company":

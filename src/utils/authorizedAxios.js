@@ -47,7 +47,7 @@ authorizedAxiosInstance.interceptors.response.use(
     if (error.response?.status === 401) {
       await authorizedAxiosInstance.delete(`${API_ROOT}/auth/logout`);
       localStorage.removeItem("isLogin");
-      window.location.href = "/login";
+      // window.location.href = "/login";
     }
 
     // Nếu mã lỗi là 410 thì tự động refresh token
@@ -64,7 +64,7 @@ authorizedAxiosInstance.interceptors.response.use(
           .catch((error) => {
             authorizedAxiosInstance.delete(`${API_ROOT}/auth/logout`);
             localStorage.removeItem("isLogin");
-            window.location.href = "/login";
+            // window.location.href = "/login";
             return Promise.reject(error);
           })
           .finally(() => {
@@ -79,7 +79,7 @@ authorizedAxiosInstance.interceptors.response.use(
     }
 
     // Để khác 410 bởi vì mã 410 phục vụ việc tự động refresh lại token
-    if (error.response?.status !== 410) {
+    if (error.response?.status !== 410 && error.response?.status !== 500) {
       showToast("error", error.response?.data?.message || error?.message);
     }
     return Promise.reject(error);
