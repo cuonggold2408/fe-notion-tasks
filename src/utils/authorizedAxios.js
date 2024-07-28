@@ -80,6 +80,7 @@ authorizedAxiosInstance.interceptors.response.use(
 
     // Để khác 410 bởi vì mã 410 phục vụ việc tự động refresh lại token
     if (error.response?.status !== 410 && error.response?.status !== 500) {
+      localStorage.removeItem("isLogin");
       showToast("error", error.response?.data?.message || error?.message);
     }
     return Promise.reject(error);
