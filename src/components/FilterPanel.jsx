@@ -12,6 +12,13 @@ import {
   DropdownMenu,
   DropdownItem,
   Avatar,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
 } from "@nextui-org/react";
 import authorizedAxiosInstance from "../utils/authorizedAxios";
 import API_ROOT from "../constants/api";
@@ -61,6 +68,7 @@ const handleUpperCaseName = (name) => {
 
 export default function FilterPanel() {
   const [isLoading, setIsLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
   const {
@@ -181,7 +189,7 @@ export default function FilterPanel() {
                   <p className="font-bold">@{handleChangeName(user.name)}</p>
                 </DropdownItem>
                 <DropdownItem key="settings">My Settings</DropdownItem>
-                <DropdownItem key="help_and_feedback">
+                <DropdownItem onClick={() => onOpen()} key="help_and_feedback">
                   Help & Feedback
                 </DropdownItem>
                 <DropdownItem
@@ -202,6 +210,36 @@ export default function FilterPanel() {
           </div>
         )}
       </div>
+      <Modal backdrop="blur" isOpen={isOpen} onClose={onClose}>
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Hướng dẫn dùng ứng dụng
+              </ModalHeader>
+              <ModalBody>
+                <ol
+                  style={{
+                    listStyleType: "decimal",
+                  }}
+                >
+                  <li>Nhập task vào ô input rồi nhấn enter để thêm task</li>
+                  <li>Muốn thay đổi task thì click vào task đó sẽ hiện ra</li>
+                </ol>
+                <p className="font-bold">
+                  Nếu thấy lỗi gì hay vướng mắc thì liên hệ đến mail:
+                  cuonggold2408@gmail.com
+                </p>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 }
